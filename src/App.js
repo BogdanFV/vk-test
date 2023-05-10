@@ -1,5 +1,5 @@
-import logo from './logo.svg';
-import './App.css';
+
+import '../src/styles/main.scss';
 
 import React, { useState } from 'react';
 
@@ -10,6 +10,13 @@ const BookingForm = () => {
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [comment, setComment] = useState('');
+  const [theme, setTheme] = useState('light');
+
+  const handleThemeToggle = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+  };
+
 
   const handleTowerChange = (e) => {
     setTower(e.target.value);
@@ -60,7 +67,8 @@ const BookingForm = () => {
   };
 
   return (
-    <div className='container'>
+    <div className={`container ${theme}`}>
+
       <form onSubmit={handleSubmit}>
         <label>
           Выберите башню:
@@ -106,9 +114,16 @@ const BookingForm = () => {
           <textarea value={comment} onChange={handleCommentChange} />
         </label>
         <br />
-        <button type="submit">Отправить</button>
-        <button type="button" onClick={handleClear}>Очистить</button>
+        <div className='buttonsCover'>
+          <button type="submit">Отправить</button>
+          <button type="button" onClick={handleClear}>Очистить</button>
+        </div>
+        
+        <button type="button" className="switchButton" onClick={handleThemeToggle}>
+          {theme === 'light' ? 'Темная тема' : 'Светлая тема'}
+        </button>
       </form>
+
     </div>
   );
 };
